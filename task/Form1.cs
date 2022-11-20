@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace task
 {
@@ -30,6 +31,9 @@ namespace task
             {
                 // Open File Processing Logic.
 
+                OpenFileDialog f1;
+
+
             }
         }
 
@@ -40,6 +44,32 @@ namespace task
                 // Save File Processing Logic.
 
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Filtration_checkBox1_Click(object sender, EventArgs e)
+        {
+            // Logic for filter on/off.
+
+        }
+
+        private void addAuthorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void removeAuthorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editAuthorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

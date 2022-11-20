@@ -35,6 +35,18 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.Filtration_checkBox1 = new System.Windows.Forms.CheckBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.authorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.booksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAuthorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAuthorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editAuthorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +54,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 28);
@@ -81,6 +94,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -92,11 +106,108 @@
             this.saveFileDialog1.FileName = "Library.txt";
             this.saveFileDialog1.Filter = "TXT files (*.txt)|*.txt|All files (*.*)|*.*";
             // 
+            // Filtration_checkBox1
+            // 
+            this.Filtration_checkBox1.AutoSize = true;
+            this.Filtration_checkBox1.Location = new System.Drawing.Point(698, 421);
+            this.Filtration_checkBox1.Name = "Filtration_checkBox1";
+            this.Filtration_checkBox1.Size = new System.Drawing.Size(90, 24);
+            this.Filtration_checkBox1.TabIndex = 1;
+            this.Filtration_checkBox1.Text = "Filtration";
+            this.Filtration_checkBox1.UseVisualStyleBackColor = true;
+            this.Filtration_checkBox1.Click += new System.EventHandler(this.Filtration_checkBox1_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(0, 31);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(800, 384);
+            this.listBox1.TabIndex = 2;
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.authorToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.booksToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // authorToolStripMenuItem
+            // 
+            this.authorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addAuthorToolStripMenuItem,
+            this.removeAuthorToolStripMenuItem,
+            this.editAuthorToolStripMenuItem});
+            this.authorToolStripMenuItem.Name = "authorToolStripMenuItem";
+            this.authorToolStripMenuItem.ShortcutKeyDisplayString = "";
+            this.authorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.authorToolStripMenuItem.Text = "Author...";
+            // 
+            // booksToolStripMenuItem
+            // 
+            this.booksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addBookToolStripMenuItem,
+            this.removeBookToolStripMenuItem,
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem});
+            this.booksToolStripMenuItem.Name = "booksToolStripMenuItem";
+            this.booksToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.booksToolStripMenuItem.Text = "Book...";
+            // 
+            // addAuthorToolStripMenuItem
+            // 
+            this.addAuthorToolStripMenuItem.Name = "addAuthorToolStripMenuItem";
+            this.addAuthorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addAuthorToolStripMenuItem.Text = "Add author";
+            this.addAuthorToolStripMenuItem.Click += new System.EventHandler(this.addAuthorToolStripMenuItem_Click);
+            // 
+            // removeAuthorToolStripMenuItem
+            // 
+            this.removeAuthorToolStripMenuItem.Name = "removeAuthorToolStripMenuItem";
+            this.removeAuthorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.removeAuthorToolStripMenuItem.Text = "Remove author";
+            this.removeAuthorToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorToolStripMenuItem_Click);
+            // 
+            // editAuthorToolStripMenuItem
+            // 
+            this.editAuthorToolStripMenuItem.Name = "editAuthorToolStripMenuItem";
+            this.editAuthorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.editAuthorToolStripMenuItem.Text = "Edit author";
+            this.editAuthorToolStripMenuItem.Click += new System.EventHandler(this.editAuthorToolStripMenuItem_Click);
+            // 
+            // addBookToolStripMenuItem
+            // 
+            this.addBookToolStripMenuItem.Name = "addBookToolStripMenuItem";
+            this.addBookToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addBookToolStripMenuItem.Text = "Add book";
+            // 
+            // removeBookToolStripMenuItem
+            // 
+            this.removeBookToolStripMenuItem.Name = "removeBookToolStripMenuItem";
+            this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.removeBookToolStripMenuItem.Text = "Remove book";
+            // 
+            // asdddddddddddasdasdasdasdasdToolStripMenuItem
+            // 
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Name = "asdddddddddddasdasdasdasdasdToolStripMenuItem";
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Text = "Edit book";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.Filtration_checkBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
@@ -119,5 +230,17 @@
         private ToolStripMenuItem exitToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
         private SaveFileDialog saveFileDialog1;
+        private CheckBox Filtration_checkBox1;
+        private ListBox listBox1;
+        private ToolStripMenuItem optionsToolStripMenuItem;
+        private ToolStripMenuItem authorToolStripMenuItem;
+        private ToolStripMenuItem addAuthorToolStripMenuItem;
+        private ToolStripMenuItem removeAuthorToolStripMenuItem;
+        private ToolStripMenuItem editAuthorToolStripMenuItem;
+        private ToolStripMenuItem booksToolStripMenuItem;
+        private ToolStripMenuItem addBookToolStripMenuItem;
+        private ToolStripMenuItem removeBookToolStripMenuItem;
+        private ToolStripMenuItem asdddddddddddasdasdasdasdasdToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }
