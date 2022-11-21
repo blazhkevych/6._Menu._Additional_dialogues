@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace task
 {
@@ -25,7 +26,6 @@ namespace task
         public Form1()
         {
             InitializeComponent();
-
             _authors = new List<Authors>();
         }
 
@@ -66,34 +66,68 @@ namespace task
         private void addAuthorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2 addForm2 = new Form2();
-            addForm2.MainForm = this;
-
             addForm2.Text = "Adding a new author.";
-            //addForm2.lab
+            addForm2.Label1Text = "Enter author name: ";
 
             DialogResult res = addForm2.ShowDialog();
             if (res == DialogResult.OK)
             {
-                Authors author = new Authors(addForm2.TextBox1Text);
-
                 foreach (var item in _authors)
                 {
-                    if (item.Name == addForm2.TextBox1Text)
-                        MessageBox.Show("This author already exists.", "Error !", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    while (item.Name == addForm2.TextBox1Text)
+                    {
+                        if (item.Name == addForm2.TextBox1Text)
+                            MessageBox.Show("This author already exists.", "Error !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        addForm2.ShowDialog();
+                    }
                 }
+                Authors author = new Authors(addForm2.TextBox1Text);
                 _authors.Add(author);
+                this.comboBox1.Items.Add(author.Name);
+                comboBox1.SelectedItem = comboBox1?.Items[0];
             }
         }
 
         private void removeAuthorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_authors.Count != 0)
+            {
+                DialogResult res = MessageBox.Show("Are you sure you want to remove the author?", "Delete author !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
+                {
+                    for (var i = 0; i < _authors.Count; i++)
+                    {
+                        if (_authors[i].Name == comboBox1.SelectedItem)
+                        {
+                            comboBox1.Items.Remove(_authors[i].Name);
+                            _authors.RemoveAt(i);
+                        }
+                    }
+                    comboBox1.SelectedItem = comboBox1?.Items[0];
+                }
+            }
         }
 
         private void editAuthorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (_authors.Count != 0)
+            {
+                Form2 editForm2 = new Form2();
+                editForm2.Text = "Edit author data.";
+                editForm2.Label1Text = "Edit author name: ";
 
+                editForm2.TextBox1Text = ((Authors)comboBox1.SelectedItem).Name;
+                string oldName = ((Authors)comboBox1.SelectedItem).Name;
+
+                DialogResult res = editForm2.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    ((Authors)comboBox1.SelectedItem).Name = editForm2.TextBox1Text;
+                    foreach (var item in _authors)
+                        if (item.Name == oldName)
+                            item.Name = editForm2.TextBox1Text;
+                }
+            }
         }
     }
 }

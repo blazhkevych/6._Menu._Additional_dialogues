@@ -12,7 +12,7 @@ namespace task
 {
     internal partial class Form2 : Form
     {
-        public Form MainForm { get; set; }
+        //public Form MainForm { get; set; }
 
         public string Label1Text
         {
