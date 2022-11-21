@@ -9,8 +9,15 @@ namespace task
     internal class Authors
     {
         public string Name { get; set; } = "Some name";
-        public string Surname { get; set; } = "Some surname";
-        private List<Books> booksList;
 
+        // Author's book list.
+        public List<Books> BooksList ;
+
+        // Constructor.
+        public Authors(string name)
+        {
+            Name = name;
+            BooksList = new List<Books>();
+        }
     }
 }

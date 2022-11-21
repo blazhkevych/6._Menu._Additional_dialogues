@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace task
 {
@@ -18,11 +19,14 @@ namespace task
     /// * Сохранение данных в файл.                                       // * Saving data to a file.
     /// Вся функциональность приложения должна быть доступна посредством меню
     /// </summary>
+
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+
+            _authors = new List<Authors>();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -31,7 +35,7 @@ namespace task
             {
                 // Open File Processing Logic.
 
-                OpenFileDialog f1;
+                //OpenFileDialog f1;
 
 
             }
@@ -57,9 +61,29 @@ namespace task
 
         }
 
+        private List<Authors> _authors;
+
         private void addAuthorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form2 addForm2 = new Form2();
+            addForm2.MainForm = this;
 
+            addForm2.Text = "Adding a new author.";
+            //addForm2.lab
+
+            DialogResult res = addForm2.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                Authors author = new Authors(addForm2.TextBox1Text);
+
+                foreach (var item in _authors)
+                {
+                    if (item.Name == addForm2.TextBox1Text)
+                        MessageBox.Show("This author already exists.", "Error !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                _authors.Add(author);
+            }
         }
 
         private void removeAuthorToolStripMenuItem_Click(object sender, EventArgs e)
