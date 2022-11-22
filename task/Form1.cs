@@ -50,19 +50,29 @@ namespace task
                     Console.WriteLine(ex);
                 }
 
-                string name;
                 try
                 {
-                    while ((name = sr.ReadLine()) != null)
+                    string authorName = sr.ReadLine();
+                    while (!sr.EndOfStream)
                     {
-                        Student st = new Student(name, sr.ReadLine(), Convert.ToInt32(sr.ReadLine()),
-                            sr.ReadLine(), Convert.ToDouble(sr.ReadLine()), sr.ReadLine());
-                        _Group.Add(st);
+                        authorName = sr.ReadLine();
+                        var author = new Authors(authorName);
+                        _authors.Add(author);
+                        while (!sr.EndOfStream)
+                        {
+                            var bookName = sr.ReadLine();
+                            if (bookName == "-//-")
+                            {
+                                break;
+                            }
+                            Books book = new Books(bookName);
+                            author.BooksList.Add(book);
+                        }
                     }
                 }
-                catch (Exception e)
+                catch (Exception exception)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(exception);
                 }
 
                 sr?.Close();
