@@ -115,7 +115,7 @@
             this.editAuthorToolStripMenuItem});
             this.authorToolStripMenuItem.Name = "authorToolStripMenuItem";
             this.authorToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.authorToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.authorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.authorToolStripMenuItem.Text = "Author...";
             // 
             // addAuthorToolStripMenuItem
@@ -142,7 +142,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // booksToolStripMenuItem
             // 
@@ -151,26 +151,29 @@
             this.removeBookToolStripMenuItem,
             this.asdddddddddddasdasdasdasdasdToolStripMenuItem});
             this.booksToolStripMenuItem.Name = "booksToolStripMenuItem";
-            this.booksToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.booksToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.booksToolStripMenuItem.Text = "Book...";
             // 
             // addBookToolStripMenuItem
             // 
             this.addBookToolStripMenuItem.Name = "addBookToolStripMenuItem";
-            this.addBookToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.addBookToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.addBookToolStripMenuItem.Text = "Add book";
+            this.addBookToolStripMenuItem.Click += new System.EventHandler(this.addBookToolStripMenuItem_Click);
             // 
             // removeBookToolStripMenuItem
             // 
             this.removeBookToolStripMenuItem.Name = "removeBookToolStripMenuItem";
-            this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.removeBookToolStripMenuItem.Text = "Remove book";
+            this.removeBookToolStripMenuItem.Click += new System.EventHandler(this.removeBookToolStripMenuItem_Click);
             // 
             // asdddddddddddasdasdasdasdasdToolStripMenuItem
             // 
             this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Name = "asdddddddddddasdasdasdasdasdToolStripMenuItem";
-            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Text = "Edit book";
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Click += new System.EventHandler(this.editBookToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 

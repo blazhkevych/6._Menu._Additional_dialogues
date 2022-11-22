@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace task
@@ -33,11 +35,30 @@ namespace task
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // Open File Processing Logic.
+                // Загрузка авторов с их книгами из файла в программу.
+                // Loading authors with their books from a file into the program.
+                _authors = LoadAuthors(openFileDialog1.FileName);
 
-                //OpenFileDialog f1;
 
 
+
+            }
+        }
+
+        private List<Authors> LoadAuthors(string fileName)
+        {
+
+            // Создание объекта для чтения из файла.
+            // Creating an object to read from a file.
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                // Создание объекта для десериализации.
+                // Creating an object for deserialization.
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Authors>));
+
+                // Десериализация.
+                // Deserialization.
+                return xmlSerializer.Deserialize(sr) as List<Authors>;
             }
         }
 
@@ -45,7 +66,25 @@ namespace task
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // Save File Processing Logic.
+
+                // Сохранение авторов с их книгами в файл с помощью серриализации.
+                // Saving authors with their books to a file using serialization.
+                
+                // Saving authors with their books to a file.
+                //using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                //{
+                //    foreach (var author in _authors)
+                //    {
+                //        sw.WriteLine(author.Name);
+                //        foreach (var book in author.BooksList)
+                //        {
+                //            sw.WriteLine(book);
+                //        }
+                //        sw.WriteLine();
+                //    }
+                //}
+
+
 
             }
         }
@@ -57,8 +96,39 @@ namespace task
 
         private void Filtration_checkBox1_Click(object sender, EventArgs e)
         {
-            // Logic for filter on/off.
+            // Display books in listBox1 by a specific author (filter books by the selected author from comboBox1).
 
+            if (Filtration_checkBox1.Checked)
+            {
+                Filtration_checkBox1.Text = "Filtration ON";
+                Filtration_checkBox1.ForeColor = Color.Green;
+                
+                listBox1.Items.Clear();
+                foreach (var item in _authors)
+                {
+                    if (item.Name == comboBox1.Text)
+                    {
+                        foreach (var item2 in item.BooksList)
+                        {
+                            listBox1.Items.Add(item2.Name);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Filtration_checkBox1.Text = "Filtration OFF";
+                Filtration_checkBox1.ForeColor = Color.Red;
+                
+                listBox1.Items.Clear();
+                foreach (var item in _authors)
+                {
+                    foreach (var item2 in item.BooksList)
+                    {
+                        listBox1.Items.Add(item2.Name);
+                    }
+                }
+            }
         }
 
         private List<Authors> _authors;
@@ -92,7 +162,7 @@ namespace task
         {
             if (_authors.Count != 0)
             {
-                DialogResult res = MessageBox.Show("Are you sure you want to remove the author?", "Delete author !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult res = MessageBox.Show("Are you sure you want to remove the author ?", "Delete author !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {
                     for (var i = 0; i < _authors.Count; i++)
@@ -116,16 +186,120 @@ namespace task
                 editForm2.Text = "Edit author data.";
                 editForm2.Label1Text = "Edit author name: ";
 
-                editForm2.TextBox1Text = ((Authors)comboBox1.SelectedItem).Name;
-                string oldName = ((Authors)comboBox1.SelectedItem).Name;
+                editForm2.TextBox1Text = (string)comboBox1.SelectedItem;
+                string oldName = (string)comboBox1.SelectedItem;
 
                 DialogResult res = editForm2.ShowDialog();
                 if (res == DialogResult.OK)
                 {
-                    ((Authors)comboBox1.SelectedItem).Name = editForm2.TextBox1Text;
                     foreach (var item in _authors)
                         if (item.Name == oldName)
                             item.Name = editForm2.TextBox1Text;
+                    for (var i = 0; i < comboBox1.Items.Count; i++)
+                    {
+                        var item = comboBox1.Items[i];
+                        if (comboBox1.Items[i] == oldName)
+                            comboBox1.Items[i] = editForm2.TextBox1Text;
+                    }
+                    comboBox1.SelectedItem = comboBox1?.Items[0];
+                }
+            }
+        }
+
+        private void addBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_authors.Count != 0)
+            {
+                Form2 addForm2 = new Form2();
+                addForm2.Text = "Adding a new book.";
+                addForm2.Label1Text = "Enter book name: ";
+
+                DialogResult res = addForm2.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    // Добавить книгу в список книг автора (выбранного в комбобоксе), если такой книги нет.
+
+                    foreach (var item in _authors)
+                    {
+                        if (item.Name == comboBox1.SelectedItem)
+                        {
+                            foreach (var books in item.BooksList)
+                            {
+                                while (books.Name == addForm2.TextBox1Text)
+                                {
+                                    if (books.Name == addForm2.TextBox1Text)
+                                        MessageBox.Show("This book already exists.", "Error !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    addForm2.ShowDialog();
+                                }
+                            }
+                            Books book = new Books(addForm2.TextBox1Text);
+                            item.BooksList.Add(book);
+                            listBox1.Items.Add(book.Name);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void removeBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_authors.Count != 0)
+            {
+                if (listBox1.Items.Count != 0)
+                {
+                    DialogResult res = MessageBox.Show("Are you sure you want to remove the book ?", "Delete book !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        foreach (var item in _authors)
+                        {
+                            for (var i = 0; i < item.BooksList.Count; i++)
+                            {
+                                if (item.BooksList[i].Name == listBox1.SelectedItem)
+                                {
+                                    listBox1.Items.Remove(item.BooksList[i].Name);
+                                    item.BooksList.RemoveAt(i);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void editBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_authors.Count != 0)
+            {
+                if (listBox1.Items.Count != 0)
+                {
+                    Form2 editForm2 = new Form2();
+                    editForm2.Text = "Edit book data.";
+                    editForm2.Label1Text = "Edit book name: ";
+
+                    editForm2.TextBox1Text = (string)listBox1.SelectedItem;
+                    string oldName = (string)listBox1.SelectedItem;
+
+                    DialogResult res = editForm2.ShowDialog();
+                    if (res == DialogResult.OK)
+                    {
+                        foreach (var item in _authors)
+                        {
+                            if (item.Name == comboBox1.SelectedItem)
+                            {
+                                foreach (var books in item.BooksList)
+                                {
+                                    if (books.Name == oldName)
+                                        books.Name = editForm2.TextBox1Text;
+                                }
+                                for (var i = 0; i < listBox1.Items.Count; i++)
+                                {
+                                    var item1 = listBox1.Items[i];
+                                    if (listBox1.Items[i] == oldName)
+                                        listBox1.Items[i] = editForm2.TextBox1Text;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
