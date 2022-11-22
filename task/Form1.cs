@@ -35,30 +35,12 @@ namespace task
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // Загрузка авторов с их книгами из файла в программу.
-                // Loading authors with their books from a file into the program.
-                _authors = LoadAuthors(openFileDialog1.FileName);
+                // Read the authors and their books from the file.
+                StreamReader sr = new StreamReader(openFileDialog1.FileName);
+                Authors author = new Authors("");
+                
 
 
-
-
-            }
-        }
-
-        private List<Authors> LoadAuthors(string fileName)
-        {
-
-            // Создание объекта для чтения из файла.
-            // Creating an object to read from a file.
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                // Создание объекта для десериализации.
-                // Creating an object for deserialization.
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Authors>));
-
-                // Десериализация.
-                // Deserialization.
-                return xmlSerializer.Deserialize(sr) as List<Authors>;
             }
         }
 
@@ -66,26 +48,18 @@ namespace task
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-
-                // Сохранение авторов с их книгами в файл с помощью серриализации.
-                // Saving authors with their books to a file using serialization.
-                
                 // Saving authors with their books to a file.
-                //using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
-                //{
-                //    foreach (var author in _authors)
-                //    {
-                //        sw.WriteLine(author.Name);
-                //        foreach (var book in author.BooksList)
-                //        {
-                //            sw.WriteLine(book);
-                //        }
-                //        sw.WriteLine();
-                //    }
-                //}
-
-
-
+                StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
+                foreach (var author in _authors)
+                {
+                    sw.WriteLine(author.Name);
+                    foreach (var book in author.BooksList)
+                    {
+                        sw.WriteLine(book.Name);
+                    }
+                    sw.WriteLine();
+                }
+                sw.Close();
             }
         }
 
@@ -102,7 +76,7 @@ namespace task
             {
                 Filtration_checkBox1.Text = "Filtration ON";
                 Filtration_checkBox1.ForeColor = Color.Green;
-                
+
                 listBox1.Items.Clear();
                 foreach (var item in _authors)
                 {
@@ -119,7 +93,7 @@ namespace task
             {
                 Filtration_checkBox1.Text = "Filtration OFF";
                 Filtration_checkBox1.ForeColor = Color.Red;
-                
+
                 listBox1.Items.Clear();
                 foreach (var item in _authors)
                 {
