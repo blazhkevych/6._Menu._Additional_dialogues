@@ -37,7 +37,7 @@ namespace task
             {
                 // Read the authors and their books from the file.
                 StreamReader sr = new StreamReader(openFileDialog1.FileName);
-                Authors author = new Authors("");
+                string name = new Authors("");
                 
 
 
