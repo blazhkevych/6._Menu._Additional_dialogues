@@ -35,12 +35,37 @@ namespace task
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // Read the authors and their books from the file.
-                StreamReader sr = new StreamReader(openFileDialog1.FileName);
-                string name = new Authors("");
-                
+                StreamReader sr = null;
+                try
+                {
+                    sr = new StreamReader("Group of students.txt", Encoding.Default);
+                }
+                catch (FileNotFoundException exception)
+                {
+                    Console.WriteLine(exception);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
 
+                string name;
+                try
+                {
+                    while ((name = sr.ReadLine()) != null)
+                    {
+                        Student st = new Student(name, sr.ReadLine(), Convert.ToInt32(sr.ReadLine()),
+                            sr.ReadLine(), Convert.ToDouble(sr.ReadLine()), sr.ReadLine());
+                        _Group.Add(st);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
 
+                sr?.Close();
             }
         }
 
@@ -49,15 +74,22 @@ namespace task
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 // Saving authors with their books to a file.
-                StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
+                StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false);
                 foreach (var author in _authors)
                 {
-                    sw.WriteLine(author.Name);
-                    foreach (var book in author.BooksList)
+                    try
                     {
-                        sw.WriteLine(book.Name);
+                        sw.WriteLine(author.Name);
+                        foreach (var book in author.BooksList)
+                        {
+                            sw.WriteLine(book.Name);
+                        }
+                        sw.WriteLine("-//-");
                     }
-                    sw.WriteLine();
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
                 }
                 sw.Close();
             }
