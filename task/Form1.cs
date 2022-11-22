@@ -56,19 +56,14 @@ namespace task
                     // Read data from a file without serialization.
                     while (!sr.EndOfStream)
                     {
-                        var author = new Authors();
-                        author.Name = sr.ReadLine();
-                        author.Books = new List<string>();
+                        var author = new Authors(sr.ReadLine());
                         var count = int.Parse(sr.ReadLine());
                         for (int i = 0; i < count; i++)
                         {
-                            author.Books.Add(sr.ReadLine());
+                            author.BooksList.Add(new Books(sr.ReadLine()));
                         }
                         _authors.Add(author);
                     }
-
-
-
                 }
                 catch (Exception exception)
                 {
