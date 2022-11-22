@@ -38,7 +38,7 @@ namespace task
                 StreamReader sr = null;
                 try
                 {
-                    sr = new StreamReader("Group of students.txt", Encoding.Default);
+                    sr = new StreamReader(openFileDialog1.FileName, Encoding.Default);
                 }
                 catch (FileNotFoundException exception)
                 {
@@ -52,23 +52,23 @@ namespace task
 
                 try
                 {
-                    string authorName = sr.ReadLine();
+                    // Прочитать данные из файла без сериализации.
+                    // Read data from a file without serialization.
                     while (!sr.EndOfStream)
                     {
-                        authorName = sr.ReadLine();
-                        var author = new Authors(authorName);
-                        _authors.Add(author);
-                        while (!sr.EndOfStream)
+                        var author = new Authors();
+                        author.Name = sr.ReadLine();
+                        author.Books = new List<string>();
+                        var count = int.Parse(sr.ReadLine());
+                        for (int i = 0; i < count; i++)
                         {
-                            var bookName = sr.ReadLine();
-                            if (bookName == "-//-")
-                            {
-                                break;
-                            }
-                            Books book = new Books(bookName);
-                            author.BooksList.Add(book);
+                            author.Books.Add(sr.ReadLine());
                         }
+                        _authors.Add(author);
                     }
+
+
+
                 }
                 catch (Exception exception)
                 {
@@ -77,7 +77,18 @@ namespace task
 
                 sr?.Close();
 
-                
+                listBox1.Items.Clear();
+                comboBox1.Items.Clear();
+
+                foreach (var item in _authors)
+                {
+                    comboBox1.Items.Add(item.Name);
+                    foreach (var item2 in item.BooksList)
+                    {
+                        listBox1.Items.Add(item2.Name);
+                    }
+                }
+
             }
         }
 
@@ -92,11 +103,9 @@ namespace task
                     try
                     {
                         sw.WriteLine(author.Name);
-                        foreach (var book in author.BooksList)
-                        {
-                            sw.WriteLine(book.Name);
-                        }
-                        sw.WriteLine("-//-");
+                        sw.WriteLine(author.BooksList.Count);
+                        for (var i = 0; i < author.BooksList.Count; i++)
+                            sw.WriteLine(author.BooksList[i].Name);
                     }
                     catch (Exception exception)
                     {
