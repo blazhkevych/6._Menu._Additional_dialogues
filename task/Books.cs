@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace task;
 
-namespace task
+internal class Books
 {
-    internal class Books
+    // Constructor.
+    public Books(string name)
     {
-        public string Name { get; set; }
-
-        // Constructor.
-        public Books(string name)
-        {
-            Name = name;
-        }
+        Name = name;
     }
+
+    public string Name { get; set; }
 }
