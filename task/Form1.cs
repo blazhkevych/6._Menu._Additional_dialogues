@@ -164,16 +164,22 @@ public partial class Form1 : Form
     {
         if (_authors.Count != 0)
         {
-            var res = MessageBox.Show("Are you sure you want to remove the author ?", "Delete author !",
+            var res = MessageBox.Show($"Are you sure you want to remove the \"{comboBox1.SelectedItem}\" ?",
+                "Delete author !",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
                 for (var i = 0; i < _authors.Count; i++)
                     if (_authors[i].Name == comboBox1.SelectedItem)
                     {
+                        // Before deleting the author, delete all his books from the listbox.
+                        foreach (var item in _authors[i].BooksList)
+                            listBox1.Items.Remove(item.Name);
+
                         comboBox1.Items.Remove(_authors[i].Name);
                         _authors.RemoveAt(i);
                     }
+
                 if (_authors.Count != 0)
                     comboBox1.SelectedItem = comboBox1?.Items[0];
             }
@@ -183,7 +189,6 @@ public partial class Form1 : Form
     private void editAuthorToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (_authors.Count != 0)
-        {
             if (comboBox1.SelectedItem != null)
             {
                 var editForm2 = new Form2();
@@ -209,7 +214,6 @@ public partial class Form1 : Form
                     comboBox1.SelectedItem = comboBox1?.Items[0];
                 }
             }
-        }
     }
 
     private void addBookToolStripMenuItem_Click(object sender, EventArgs e)
@@ -246,48 +250,53 @@ public partial class Form1 : Form
     {
         if (_authors.Count != 0)
             if (listBox1.Items.Count != 0)
-            {
-                var res = MessageBox.Show("Are you sure you want to remove the book ?", "Delete book !",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
-                    foreach (var item in _authors)
-                        for (var i = 0; i < item.BooksList.Count; i++)
-                            if (item.BooksList[i].Name == listBox1.SelectedItem)
-                            {
-                                listBox1.Items.Remove(item.BooksList[i].Name);
-                                item.BooksList.RemoveAt(i);
-                            }
-            }
+                // If at least one book is selected in the list, then we delete it.
+                if (listBox1.SelectedItem != null)
+                {
+                    var res = MessageBox.Show($"Are you sure you want to remove the \"{listBox1.SelectedItem}\" ?",
+                        "Delete book !",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                        foreach (var item in _authors)
+                            for (var i = 0; i < item.BooksList.Count; i++)
+                                if (item.BooksList[i].Name == listBox1.SelectedItem)
+                                {
+                                    listBox1.Items.Remove(item.BooksList[i].Name);
+                                    item.BooksList.RemoveAt(i);
+                                }
+                }
     }
 
     private void editBookToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (_authors.Count != 0)
             if (listBox1.Items.Count != 0)
-            {
-                var editForm2 = new Form2();
-                editForm2.Text = "Edit book data.";
-                editForm2.Label1Text = "Edit book name: ";
+                // If at least one book is selected in the list, then we edit it.
+                if (listBox1.SelectedItem != null)
+                {
+                    var editForm2 = new Form2();
+                    editForm2.Text = "Edit book data.";
+                    editForm2.Label1Text = "Edit book name: ";
 
-                editForm2.TextBox1Text = (string)listBox1.SelectedItem;
-                var oldName = (string)listBox1.SelectedItem;
+                    editForm2.TextBox1Text = (string)listBox1.SelectedItem;
+                    var oldName = (string)listBox1.SelectedItem;
 
-                var res = editForm2.ShowDialog();
-                if (res == DialogResult.OK)
-                    foreach (var item in _authors)
-                        if (item.Name == comboBox1.SelectedItem)
-                        {
-                            foreach (var books in item.BooksList)
-                                if (books.Name == oldName)
-                                    books.Name = editForm2.TextBox1Text;
-                            for (var i = 0; i < listBox1.Items.Count; i++)
+                    var res = editForm2.ShowDialog();
+                    if (res == DialogResult.OK)
+                        foreach (var item in _authors)
+                            if (item.Name == comboBox1.SelectedItem)
                             {
-                                var item1 = listBox1.Items[i];
-                                if (listBox1.Items[i] == oldName)
-                                    listBox1.Items[i] = editForm2.TextBox1Text;
+                                foreach (var books in item.BooksList)
+                                    if (books.Name == oldName)
+                                        books.Name = editForm2.TextBox1Text;
+                                for (var i = 0; i < listBox1.Items.Count; i++)
+                                {
+                                    var item1 = listBox1.Items[i];
+                                    if (listBox1.Items[i] == oldName)
+                                        listBox1.Items[i] = editForm2.TextBox1Text;
+                                }
                             }
-                        }
-            }
+                }
     }
 
     private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
