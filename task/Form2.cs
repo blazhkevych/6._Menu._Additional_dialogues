@@ -5,6 +5,7 @@ internal partial class Form2 : Form
     public Form2()
     {
         InitializeComponent();
+        MaximizeBox = false;
     }
 
     public string Label1Text

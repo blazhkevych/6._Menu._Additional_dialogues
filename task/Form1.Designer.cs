@@ -115,34 +115,35 @@
             this.editAuthorToolStripMenuItem});
             this.authorToolStripMenuItem.Name = "authorToolStripMenuItem";
             this.authorToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.authorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.authorToolStripMenuItem.Text = "Author...";
+            this.authorToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.authorToolStripMenuItem.Text = "Author";
             // 
             // addAuthorToolStripMenuItem
             // 
             this.addAuthorToolStripMenuItem.Name = "addAuthorToolStripMenuItem";
-            this.addAuthorToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
-            this.addAuthorToolStripMenuItem.Text = "Add author";
+            this.addAuthorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.addAuthorToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.addAuthorToolStripMenuItem.Text = "Add author...";
             this.addAuthorToolStripMenuItem.Click += new System.EventHandler(this.addAuthorToolStripMenuItem_Click);
             // 
             // removeAuthorToolStripMenuItem
             // 
             this.removeAuthorToolStripMenuItem.Name = "removeAuthorToolStripMenuItem";
-            this.removeAuthorToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
-            this.removeAuthorToolStripMenuItem.Text = "Remove author";
+            this.removeAuthorToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.removeAuthorToolStripMenuItem.Text = "Remove author...";
             this.removeAuthorToolStripMenuItem.Click += new System.EventHandler(this.removeAuthorToolStripMenuItem_Click);
             // 
             // editAuthorToolStripMenuItem
             // 
             this.editAuthorToolStripMenuItem.Name = "editAuthorToolStripMenuItem";
-            this.editAuthorToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
-            this.editAuthorToolStripMenuItem.Text = "Edit author";
+            this.editAuthorToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.editAuthorToolStripMenuItem.Text = "Edit author...";
             this.editAuthorToolStripMenuItem.Click += new System.EventHandler(this.editAuthorToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(134, 6);
             // 
             // booksToolStripMenuItem
             // 
@@ -151,28 +152,29 @@
             this.removeBookToolStripMenuItem,
             this.asdddddddddddasdasdasdasdasdToolStripMenuItem});
             this.booksToolStripMenuItem.Name = "booksToolStripMenuItem";
-            this.booksToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.booksToolStripMenuItem.Text = "Book...";
+            this.booksToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.booksToolStripMenuItem.Text = "Book";
             // 
             // addBookToolStripMenuItem
             // 
             this.addBookToolStripMenuItem.Name = "addBookToolStripMenuItem";
-            this.addBookToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.addBookToolStripMenuItem.Text = "Add book";
+            this.addBookToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.addBookToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.addBookToolStripMenuItem.Text = "Add book...";
             this.addBookToolStripMenuItem.Click += new System.EventHandler(this.addBookToolStripMenuItem_Click);
             // 
             // removeBookToolStripMenuItem
             // 
             this.removeBookToolStripMenuItem.Name = "removeBookToolStripMenuItem";
-            this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.removeBookToolStripMenuItem.Text = "Remove book";
+            this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.removeBookToolStripMenuItem.Text = "Remove book...";
             this.removeBookToolStripMenuItem.Click += new System.EventHandler(this.removeBookToolStripMenuItem_Click);
             // 
             // asdddddddddddasdasdasdasdasdToolStripMenuItem
             // 
             this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Name = "asdddddddddddasdasdasdasdasdToolStripMenuItem";
-            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Text = "Edit book";
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Text = "Edit book...";
             this.asdddddddddddasdasdasdasdasdToolStripMenuItem.Click += new System.EventHandler(this.editBookToolStripMenuItem_Click);
             // 
             // openFileDialog1
@@ -214,6 +216,7 @@
             this.comboBox1.Size = new System.Drawing.Size(800, 28);
             this.comboBox1.Sorted = true;
             this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
             // Form1
             // 
@@ -226,9 +229,10 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Authors and books";
+            this.Text = "Authors and books.";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

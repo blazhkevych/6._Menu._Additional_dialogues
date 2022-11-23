@@ -49,8 +49,6 @@ public partial class Form1 : Form
 
             try
             {
-                // Прочитать данные из файла без сериализации.
-                // Read data from a file without serialization.
                 while (!sr.EndOfStream)
                 {
                     var author = new Authors(sr.ReadLine());
@@ -74,6 +72,8 @@ public partial class Form1 : Form
                 comboBox1.Items.Add(item.Name);
                 foreach (var item2 in item.BooksList) listBox1.Items.Add(item2.Name);
             }
+
+            comboBox1.SelectedIndex = 0;
         }
     }
 
@@ -107,13 +107,6 @@ public partial class Form1 : Form
 
     private void Filtration()
     {
-        Filtration(); // 
-    }
-
-    private void Filtration_checkBox1_Click(object sender, EventArgs e)
-    {
-        // Display books in listBox1 by a specific author (filter books by the selected author from comboBox1).
-
         if (Filtration_checkBox1.Checked)
         {
             Filtration_checkBox1.Text = "Filtration ON";
@@ -135,6 +128,11 @@ public partial class Form1 : Form
                 foreach (var item2 in item.BooksList)
                     listBox1.Items.Add(item2.Name);
         }
+    }
+
+    private void Filtration_checkBox1_Click(object sender, EventArgs e)
+    {
+        Filtration();
     }
 
     private void addAuthorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -186,27 +184,30 @@ public partial class Form1 : Form
     {
         if (_authors.Count != 0)
         {
-            var editForm2 = new Form2();
-            editForm2.Text = "Edit author data.";
-            editForm2.Label1Text = "Edit author name: ";
-
-            editForm2.TextBox1Text = (string)comboBox1.SelectedItem;
-            var oldName = (string)comboBox1.SelectedItem;
-
-            var res = editForm2.ShowDialog();
-            if (res == DialogResult.OK)
+            if (comboBox1.SelectedItem != null)
             {
-                foreach (var item in _authors)
-                    if (item.Name == oldName)
-                        item.Name = editForm2.TextBox1Text;
-                for (var i = 0; i < comboBox1.Items.Count; i++)
-                {
-                    var item = comboBox1.Items[i];
-                    if (comboBox1.Items[i] == oldName)
-                        comboBox1.Items[i] = editForm2.TextBox1Text;
-                }
+                var editForm2 = new Form2();
+                editForm2.Text = "Edit author data.";
+                editForm2.Label1Text = "Edit author name: ";
 
-                comboBox1.SelectedItem = comboBox1?.Items[0];
+                editForm2.TextBox1Text = (string)comboBox1.SelectedItem;
+                var oldName = (string)comboBox1.SelectedItem;
+
+                var res = editForm2.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    foreach (var item in _authors)
+                        if (item.Name == oldName)
+                            item.Name = editForm2.TextBox1Text;
+                    for (var i = 0; i < comboBox1.Items.Count; i++)
+                    {
+                        var item = comboBox1.Items[i];
+                        if (comboBox1.Items[i] == oldName)
+                            comboBox1.Items[i] = editForm2.TextBox1Text;
+                    }
+
+                    comboBox1.SelectedItem = comboBox1?.Items[0];
+                }
             }
         }
     }
@@ -287,5 +288,12 @@ public partial class Form1 : Form
                             }
                         }
             }
+    }
+
+    private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+    {
+        if (comboBox1.Items.Count != 0)
+            if (Filtration_checkBox1.Checked)
+                Filtration();
     }
 }
