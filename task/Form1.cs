@@ -171,8 +171,8 @@ public partial class Form1 : Form
                         comboBox1.Items.Remove(_authors[i].Name);
                         _authors.RemoveAt(i);
                     }
-
-                comboBox1.SelectedItem = comboBox1?.Items[0];
+                if (_authors.Count != 0)
+                    comboBox1.SelectedItem = comboBox1?.Items[0];
             }
         }
     }
