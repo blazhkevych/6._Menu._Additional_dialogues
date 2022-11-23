@@ -105,6 +105,11 @@ public partial class Form1 : Form
         Application.Exit();
     }
 
+    private void Filtration()
+    {
+        Filtration(); // 
+    }
+
     private void Filtration_checkBox1_Click(object sender, EventArgs e)
     {
         // Display books in listBox1 by a specific author (filter books by the selected author from comboBox1).
